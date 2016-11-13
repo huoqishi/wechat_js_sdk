@@ -1,9 +1,10 @@
 const express = require('express')
-const bodyParse = require('body-parser')
+const bodyParser = require('body-parser')
 const app = express()
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static('../client'))
 
 // Get 
 // wechat
