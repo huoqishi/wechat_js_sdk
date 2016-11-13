@@ -18,8 +18,10 @@
     var xhr = new XMLHttpRequest()
     xhr.open('GET', 'http://wechat.huoqishi.net/wechat/ticket')
     xhr.onreadystatechange = function(res) {
-        
+        console.log(res.readyState)
+        console.log(res.status)
         if (res.readyState == 4) {
+
             if (res.status == 200) {
               alert("success");
                 console.log(res)
