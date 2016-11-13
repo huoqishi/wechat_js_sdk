@@ -8,7 +8,7 @@ app.use(express.static('../client'))
 
 // Get 
 // wechat
-app.get('/test',(req, res) => {
+app.get('/wechat/valid',(req, res) => {
   res.send(req.body.echostr)
 })
 
