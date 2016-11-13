@@ -32,6 +32,7 @@ app.use('/wechat/index', (req, res) => {
         let tmp =  result.FromUserName
         result.xml.FromUserName = result.xml.ToUserName
         result.xml.ToUserName = tmp
+        result.xml.CreateTime = Date.now()
 
         // 设置返回给用户的消息内容
         result.xml.Content = Math.random()
