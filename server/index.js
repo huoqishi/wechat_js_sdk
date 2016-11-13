@@ -55,7 +55,6 @@ app.post('/wechat/index', (req, res) => {
 app.get('/wechat/ticket', (req, res) => {
     console.log('有人调用了!')
     wxConfig.getJsapi_Ticket( ticket => {
-      console.log(ticket)
       // const ticket = ticket
       const noncestr = 'SuiJiZiFuChuang'
       const timestamp = Date.now()

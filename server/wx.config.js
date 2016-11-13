@@ -32,10 +32,9 @@ app.getAccess_Token = (callback) => {
     // 判断 access_token是否过期
     const td = Date.now() - Access_Token.access_time
     if (td / 1000 < Access_Token.expires_in) {
-        return callback(Access_Token.access_token)
+        callback(Access_Token.access_token)
             // return Access_Token.access_token
     }
-
     // 重新获取 access_token
     const arg = {
         grant_type: 'client_credential',
@@ -44,13 +43,18 @@ app.getAccess_Token = (callback) => {
     }
     const url = 'https://api.weixin.qq.com/cgi-bin/token?' + qs.stringify(arg)
     request(url, (err, res, body) => {
+        body = JSON.parse(body)
         Access_Token.access_token = body.access_token
         Access_Token.expires_in = body.expires_in
         Access_Token.access_time = Date.now()
-
         // 新获取的写入配置文件，或者保存到数据库中
-        fs.writeFile('./wx.config.json', JSON.stringify(wxConfig))
-
+        const tmp = JSON.stringify(wxConfig)
+        console.log(tmp)
+        fs.writeFile('./wx.config.json', tmp,function(err,ff){
+          // console.log('-----file')
+          if(err) return console.log(err)
+            // console.log(ff)
+        })
         callback(body.access_token)
     })
 }
@@ -84,3 +88,6 @@ app.getJsapi_Ticket = (callback) => {
     })
 }
 module.exports = app
+app.getAccess_Token(function(arg){
+  console.log(arg)
+})
