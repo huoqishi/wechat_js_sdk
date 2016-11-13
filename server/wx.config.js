@@ -101,7 +101,3 @@ app.getJsapi_Ticket = (callback) => {
     })
 }
 module.exports = app
-app.getJsapi_Ticket(function(tick){
-  console.log('--get')
-  console.log(tick)
-})
