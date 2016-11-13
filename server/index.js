@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const app = express()
 
 // 转换xmltojs
-const parseString= require('xml2js').xml2js
+const parseString= require('xml2js').parseString
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
