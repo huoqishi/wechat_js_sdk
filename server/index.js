@@ -8,7 +8,7 @@ app.use(express.static('../client'))
 
 // Get 
 // wechat
-app.get('/wechat/valid',(req, res) => {
+app.get('/wechat/index',(req, res) => {
   console.log('开始验证!!!!')
   res.send(req.query.echostr)
 })
