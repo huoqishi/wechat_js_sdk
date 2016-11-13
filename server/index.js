@@ -11,4 +11,4 @@ app.get('/test',(req, res) => {
   res.send(req.body.echostr)
 })
 
-app.liste(3000)
+app.listen(80)
