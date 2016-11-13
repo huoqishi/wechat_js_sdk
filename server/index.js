@@ -54,8 +54,8 @@ app.post('/wechat/index', (req, res) => {
 // 获取相关数据
 app.get('/wechat/ticket', (req, res) => {
     
-    wxConfig.getJsapi_Ticket(ticket => {
-      const ticket = ticket
+    wxConfig.getJsapi_Ticket( ticket => {
+      // const ticket = ticket
       const noncestr = 'SuiJiZiFuChuang'
       const timestamp = Date.now()
       const url = 'http://wechat.huoqishi.net'
@@ -72,7 +72,7 @@ app.get('/wechat/ticket', (req, res) => {
         appid:app.APPID,
         signature:signature
       })
-      
+
     })
 })
 
