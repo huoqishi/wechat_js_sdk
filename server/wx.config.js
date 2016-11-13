@@ -23,8 +23,6 @@ let Access_Token = wxConfig.access_token
  */
 let Jsapi_Ticket = wxConfig.jsapi_ticket
 
-
-
 // 
 // let 
 

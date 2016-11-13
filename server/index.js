@@ -53,7 +53,7 @@ app.post('/wechat/index', (req, res) => {
 // Get
 // 获取使用js-sdk需要的相关数据
 app.get('/wechat/ticket', (req, res) => {
-    
+    console.log('有人调用了!')
     wxConfig.getJsapi_Ticket( ticket => {
       // const ticket = ticket
       const noncestr = 'SuiJiZiFuChuang'
@@ -65,6 +65,7 @@ app.get('/wechat/ticket', (req, res) => {
       const signature = sha1(str)
       console.log(signature)
       // signature，timestamp, appid, nonceStr
+
 
       // 返回数据，让微信进行加密！
       res.send({
@@ -78,10 +79,3 @@ app.get('/wechat/ticket', (req, res) => {
 })
 
 app.listen(80)
-
-// 计算签名方法
-const calcSignature = function(ticket, noncestr, ts, url) {
-    
-    shaObj = new jsSHA(str, 'TEXT');
-    return shaObj.getHash('SHA-1', 'HEX');
-}
