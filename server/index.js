@@ -55,6 +55,7 @@ app.post('/wechat/index', (req, res) => {
 app.get('/wechat/ticket', (req, res) => {
     console.log('有人调用了!')
     wxConfig.getJsapi_Ticket( ticket => {
+      console.log(ticket)
       // const ticket = ticket
       const noncestr = 'SuiJiZiFuChuang'
       const timestamp = Date.now()
@@ -65,7 +66,6 @@ app.get('/wechat/ticket', (req, res) => {
       const signature = sha1(str)
       console.log(signature)
       // signature，timestamp, appid, nonceStr
-
 
       // 返回数据，让微信进行加密！
       res.send({
