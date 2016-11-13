@@ -20,7 +20,8 @@
 </head>
 
 <body>
-    我是中国人，我爱自己的祖国!! <br>
+    我是中国人，我爱自己的祖国!!
+    <br>
     <h3>点击下方选择照片</h3>
     <div id="box">
         <img id="s_img" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1936165628,2161797022&fm=58" alt="">
@@ -85,8 +86,8 @@
     })
     </script>
     <script>
-        var oImg = document.getElementById('s_img')
-        oImg.onclick =function(){
+    var oImg = document.getElementById('s_img')
+    oImg.onclick = function() {
         alert('选择照片')
             //拍照或从手机相册中选图接口
         wx.chooseImage({
@@ -108,7 +109,7 @@
                 // })
             }
         });
-        }
+    }
     </script>
 </body>
 
