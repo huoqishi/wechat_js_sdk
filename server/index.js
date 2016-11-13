@@ -56,12 +56,12 @@ app.get('/wechat/ticket', (req, res) => {
     console.log('有人调用了!')
     wxConfig.getJsapi_Ticket( ticket => {
       // const ticket = ticket
-      const noncestr = 'SuiJiZiFuChuang'
+      const nonceStr = 'SuiJiZiFuChuang'
       const timestamp = parseInt(timestamp/1000)
       const url = 'http://wechat.huoqishi.net'
-
+      const appid = wxConfig.APPID
       // 加密
-      const str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url;
+      const str = 'jsapi_ticket=' + ticket + '&noncestr=' + nonceStr + '&timestamp=' + timestamp + '&url=' + url;
       const signature = sha1(str)
       console.log(signature)
       // signature，timestamp, appid, nonceStr
@@ -69,11 +69,10 @@ app.get('/wechat/ticket', (req, res) => {
 
       // 返回数据，让微信进行加密！
       res.json({
-        timestamp:,timestamp
-        nonceStr:noncestr,
-        appid:app.APPID,
-        signature:signature,
-        appid:wxConfig.APPID
+        timestamp,
+        nonceStr,
+        appid,
+        signature
       })
 
     })
