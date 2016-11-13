@@ -58,7 +58,7 @@ app.get('/wechat/ticket', (req, res) => {
       // const ticket = ticket
       const nonceStr = 'SuiJiZiFuChuang'
       const timestamp = parseInt(Date.now()/1000)
-      const url = 'http://wechat.huoqishi.net/'
+      const url = 'http://wechat.huoqishi.net/index.html'
       const appid = wxConfig.APPID
       // 加密
       const str = 'jsapi_ticket=' + ticket + '&noncestr=' + nonceStr + '&timestamp=' + timestamp + '&url=' + url;
