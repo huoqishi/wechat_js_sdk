@@ -30,11 +30,11 @@ app.use('/wechat/index', (req, res) => {
         console.log(result)
         // 交换fromusername 与tousername
         let tmp =  result.FromUserName
-        result.FromUserName = result.ToUserName
-        result.ToUserName = tmp
+        result.xml.FromUserName = result.xml.ToUserName
+        result.xml.ToUserName = tmp
 
         // 设置返回给用户的消息内容
-        result.Content = Math.random()
+        result.xml.Content = Math.random()
         // result.FromUserName = [result.ToUserName, result.ToUserName = result.FromUserName][0]
         
         // 将json形式对象转换为xml格式字符串
