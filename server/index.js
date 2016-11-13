@@ -72,7 +72,8 @@ app.get('/wechat/ticket', (req, res) => {
         timestamp:parseInt(timestamp/1000),
         nonceStr:noncestr,
         appid:app.APPID,
-        signature:signature
+        signature:signature,
+        appid:wxConfig.APPID
       })
 
     })
