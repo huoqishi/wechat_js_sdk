@@ -1,3 +1,4 @@
+'use strict'
 // 微信所需要的一些配置
 
 const http = require('http')
