@@ -25,7 +25,9 @@ app.get('/wechat/index', (req, res) => {
 
 app.use('/wechat/index', (req, res) => {
   console.log('有人过来了!!')
+  console.log(req.body)
     parser.parseString(req.body, function(err, result) {
+        console.log(result)
         // 交换fromusername 与tousername
         let tmp =  result.FromUserName
         result.FromUserName = result.ToUserName
