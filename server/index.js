@@ -29,7 +29,7 @@ app.use('/wechat/index', (req, res) => {
     parser.parseString(req.body, function(err, result) {
         console.log(result)
         // 交换fromusername 与tousername
-        let tmp =  result.FromUserName
+        let tmp =  result.xml.FromUserName
         result.xml.FromUserName = result.xml.ToUserName
         result.xml.ToUserName = tmp
         result.xml.CreateTime = Date.now()
