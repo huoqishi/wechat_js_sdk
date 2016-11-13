@@ -57,7 +57,7 @@ app.get('/wechat/ticket', (req, res) => {
     wxConfig.getJsapi_Ticket( ticket => {
       // const ticket = ticket
       const noncestr = 'SuiJiZiFuChuang'
-      const timestamp = Date.now()
+      const timestamp = parseInt(timestamp/1000)
       const url = 'http://wechat.huoqishi.net'
 
       // 加密
@@ -69,7 +69,7 @@ app.get('/wechat/ticket', (req, res) => {
 
       // 返回数据，让微信进行加密！
       res.json({
-        timestamp:parseInt(timestamp/1000),
+        timestamp:,timestamp
         nonceStr:noncestr,
         appid:app.APPID,
         signature:signature,
