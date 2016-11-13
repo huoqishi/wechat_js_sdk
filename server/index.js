@@ -6,7 +6,7 @@ const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(bodyParser.text({ type: ‘text/xml’ }))
+app.use(bodyParser.text({ type: 'text/xml' }))
 app.use(express.static('../client'))
 
 // Get 
