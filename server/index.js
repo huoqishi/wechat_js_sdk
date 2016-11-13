@@ -1,6 +1,8 @@
 'use strict'
 const express = require('express')
 const bodyParser = require('body-parser')
+const wxConfig = require('./wx.config.js')
+const sha1 = require('sha1')
 const app = express()
 
 // 转换xmltojs
@@ -17,32 +19,68 @@ app.use(bodyParser.text({ type: 'text/xml' }))
 app.use(express.static('../client'))
 
 // Get 
-// wechat
+// 认证
 app.get('/wechat/index', (req, res) => {
     console.log('开始验证!!!!')
     res.send(req.query.echostr)
 })
 
-app.use('/wechat/index', (req, res) => {
-  console.log('有人过来了!!')
-  console.log(req.body)
+// Post
+// 微信会将所有的消息通过这个地址发送过来
+app.post('/wechat/index', (req, res) => {
+    console.log('有人过来了!!')
+    console.log(req.body)
     parser.parseString(req.body, function(err, result) {
         console.log(result)
-        // 交换fromusername 与tousername
-        let tmp =  result.xml.FromUserName
+            // 交换fromusername 与tousername
+        let tmp = result.xml.FromUserName
         result.xml.FromUserName = result.xml.ToUserName
         result.xml.ToUserName = tmp
         result.xml.CreateTime = Date.now()
 
         // 设置返回给用户的消息内容
         result.xml.Content = Math.random()
-        // result.FromUserName = [result.ToUserName, result.ToUserName = result.FromUserName][0]
-        
+            // result.FromUserName = [result.ToUserName, result.ToUserName = result.FromUserName][0]
+
         // 将json形式对象转换为xml格式字符串
-        let sendMsg = builder.buildObject(result)  
+        let sendMsg = builder.buildObject(result)
         console.log(22)
         console.log(sendMsg.split('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[1])
         res.send(sendMsg.split('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[1])
     })
 })
+
+// Get
+// 获取相关数据
+app.get('/wechat/ticket', (req, res) => {
+    
+    wxConfig.getJsapi_Ticket(ticket => {
+      const ticket = ticket
+      const noncestr = 'SuiJiZiFuChuang'
+      const timestamp = Date.now()
+      const url = 'http://wechat.huoqishi.net'
+
+      // 加密
+      const str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url;
+      const signature = sha1(str)
+      // signature，timestamp, appid, nonceStr
+
+      // 返回数据，让微信进行加密！
+      res.send({
+        timestamp:timestamp,
+        nonceStr:noncestr,
+        appid:app.APPID,
+        signature:signature
+      })
+      
+    })
+})
+
 app.listen(80)
+
+// 计算签名方法
+const calcSignature = function(ticket, noncestr, ts, url) {
+    
+    shaObj = new jsSHA(str, 'TEXT');
+    return shaObj.getHash('SHA-1', 'HEX');
+}
