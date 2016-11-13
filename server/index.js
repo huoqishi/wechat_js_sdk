@@ -66,14 +66,14 @@ app.get('/wechat/ticket', (req, res) => {
       console.log(signature)
       // signature，timestamp, appid, nonceStr
 
-
-      // 返回数据，让微信进行加密！
-      res.json({
+      const result = {
         timestamp:timestamp,
         nonceStr:nonceStr,
         appid:appid,
         signature:signature
-      })
+      }
+      // 返回数据，让微信进行加密！
+      res.json(result)
 
     })
 })
