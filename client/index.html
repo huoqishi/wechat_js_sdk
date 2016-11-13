@@ -7,19 +7,19 @@
     <title>首页</title>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
-        #box{
-            text-align: center;
-        }
-        #box img{
-            width: 80%;
-        }
+    #box {
+        text-align: center;
+    }
+    
+    #box img {
+        width: 80%;
+    }
     </style>
     <!-- 如果要使用摇一摇，则再额外引用该文件 -->
     <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script> -->
 </head>
 
 <body>
-
     我是中国人，我爱自己的祖国!!
     <div id="box">
         <img id="s_img" src="" alt="">
@@ -43,7 +43,7 @@
                     timestamp: info.timestamp, // 必填，生成签名的时间戳
                     nonceStr: info.nonceStr, // 必填，生成签名的随机串
                     signature: info.signature, // 必填，签名，见附录1
-                    jsApiList: ['chooseImage','previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    jsApiList: ['chooseImage', 'previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                 })
             } else {
                 alert("error");
@@ -55,7 +55,7 @@
 
     wx.ready(function() {
         console.log('成功！')
-        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
 
         //拍照或从手机相册中选图接口
         wx.chooseImage({
@@ -64,9 +64,17 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function(res) {
                 var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-
                 var oImg = document.getElementById('s_img')
                 oImg.src = localIds
+
+                // 上传图片
+                wx.uploadImage({
+                    localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function(res) {
+                        var serverId = res.serverId; // 返回图片的服务器端ID
+                    }
+                })
             }
         });
     })
