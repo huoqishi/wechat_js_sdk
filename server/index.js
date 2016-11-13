@@ -14,6 +14,7 @@ app.get('/wechat/index', (req, res) => {
 })
 app.use('/wechat/index', (req, res) => {
   console.log('有请求过来了')
+  console.log(req.query)
   console.log(req.body)
 })
 
