@@ -41,8 +41,8 @@ app.use('/wechat/index', (req, res) => {
         // 将json形式对象转换为xml格式字符串
         let sendMsg = builder.buildObject(result)  
         console.log(22)
-        console.log(sendMsg)
-        res.send(sendMsg)
+        console.log(sendMsg.split('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[1])
+        res.send(sendMsg.split('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')[1])
     })
 })
 app.listen(80)
