@@ -51,7 +51,7 @@ app.post('/wechat/index', (req, res) => {
 })
 
 // Get
-// 获取相关数据
+// 获取使用js-sdk需要的相关数据
 app.get('/wechat/ticket', (req, res) => {
     
     wxConfig.getJsapi_Ticket( ticket => {
@@ -63,11 +63,12 @@ app.get('/wechat/ticket', (req, res) => {
       // 加密
       const str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url;
       const signature = sha1(str)
+      console.log(signature)
       // signature，timestamp, appid, nonceStr
 
       // 返回数据，让微信进行加密！
       res.send({
-        timestamp:timestamp,
+        timestamp:timestamp/1000 + ‘’,
         nonceStr:noncestr,
         appid:app.APPID,
         signature:signature
