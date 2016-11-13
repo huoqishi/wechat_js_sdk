@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>首页</title>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <style>
+        .box{
+            text-align: center;
+        }
+        .box img{
+            width: 80%
+        }
+    </style>
     <!-- 如果要使用摇一摇，则再额外引用该文件 -->
     <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script> -->
 </head>
 
 <body>
+
     我是中国人，我爱自己的祖国!!
+    <div id="box">
+        <img id="s_img" src="" alt="">
+    </div>
     <script src=""></script>
     <script>
     // 0.发ajax得到相关数据
@@ -22,6 +34,7 @@
         console.log(res.status)
         if (res.target.readyState == 4) {
             if (res.target.status == 200) {
+                // ------------------- 请求成功!
                 var info = JSON.parse(res.target.responseText)
                 console.log(info)
                 wx.config({
@@ -30,7 +43,7 @@
                     timestamp: info.timestamp, // 必填，生成签名的时间戳
                     nonceStr: info.nonceStr, // 必填，生成签名的随机串
                     signature: info.signature, // 必填，签名，见附录1
-                    jsApiList: ['chooseImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    jsApiList: ['chooseImage','previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                 })
             } else {
                 alert("error");
@@ -51,6 +64,9 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function(res) {
                 var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+
+                var oImg = document.getElementById('s_img')
+                oImg.src = localIds
             }
         });
     })
