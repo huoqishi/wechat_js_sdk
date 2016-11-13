@@ -47,12 +47,18 @@ app.getAccess_Token = (callback) => {
         Access_Token.access_token = body.access_token
         Access_Token.expires_in = body.expires_in
         Access_Token.access_time = Date.now()
-        // 新获取的写入配置文件，或者保存到数据库中
+            // 新获取的写入配置文件，或者保存到数据库中
         const tmp = JSON.stringify(wxConfig)
         console.log(tmp)
-        fs.writeFile('./wx.config.json', tmp,function(err,ff){
-          // console.log('-----file')
-          if(err) return console.log(err)
+            // 请求到数据就保存到文件中
+        fs.writeFile(__dirname + '/wx.config.json', tmp, function(err, ff) {
+            // console.log('-----file')
+            if (err) {
+                console.log('---err')
+                console.log(err)
+                console.log('---err-end')
+                return
+            }
             // console.log(ff)
         })
         callback(body.access_token)
@@ -66,25 +72,36 @@ app.getJsapi_Ticket = (callback) => {
     if (td / 1000 < Jsapi_Ticket.expires_in) {
         return callback(Jsapi_Ticket.ticket)
     }
-
-    // 获取 jsapi_ticket
-    const arg = {
-        access_token: '',
-        type: 'jsapi'
-    }
-
     app.getAccess_Token((at) => {
-        arg.access_token = at
+        // 获取 jsapi_ticket
+        const arg = {
+                access_token: at,
+                type: 'jsapi'
+            }
             // 获取jsapi_ticket
         const url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?' + qs.stringify(arg)
         request(url, (err, res, body) => {
+            body = JSON.parse(body)
             Jsapi_Ticket.ticket = body.ticket
             Jsapi_Ticket.expires_in = body.expires_in
             Jsapi_Ticket.access_time = Date.now()
+            const tmp = JSON.stringify(wxConfig)
+            console.log(tmp)
                 // 新获取的写入配置文件，或者保存到数据库中
-            fs.writeFile('./wx.config.json', JSON.stringify(wxConfig))
+            fs.writeFile(__dirname + '/wx.config.json', tmp, function(err) {
+                if (err) {
+                    console.log('---err')
+                    console.log(err)
+                    console.log('---err-end')
+                    return
+                }
+            })
             callback(Jsapi_Ticket.ticket)
         })
     })
 }
 module.exports = app
+app.getJsapi_Ticket(function(tick){
+  console.log('--get')
+  console.log(tick)
+})
