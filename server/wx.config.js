@@ -88,6 +88,3 @@ app.getJsapi_Ticket = (callback) => {
     })
 }
 module.exports = app
-app.getAccess_Token(function(arg){
-  console.log(arg)
-})
