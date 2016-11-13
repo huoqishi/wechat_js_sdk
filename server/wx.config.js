@@ -4,7 +4,7 @@
 const http = require('http')
 const request = require('request')
 const qs = require('querystring');
-
+const app = {}
 app.APPID = 'wx15abca5df4cf07e9'
 const APPSECRET = 'c65b79d54e6da0667fda63c8f09920a6'
 
@@ -24,7 +24,7 @@ let Jsapi_Ticket = {
     "access_time": Date.now()
 }
 
-const app = {}
+
     // 
     // let 
 
@@ -75,3 +75,4 @@ app.getJsapi_Ticket = (callback) => {
         })
     })
 }
+module.exports = app
