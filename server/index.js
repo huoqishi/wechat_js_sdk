@@ -13,9 +13,16 @@ app.get('/wechat/index', (req, res) => {
   res.send(req.query.echostr)
 })
 app.use('/wechat/index', (req, res) => {
+  let dt
+  req.on('data', data =>{
+    dt = data.toString('utf-8')
+  })
+  req.on('end', ()=>{
+    console.log(dt)
+  })
   console.log('有请求过来了')
-  console.log(req.query)
-  console.log(req.body)
+  // console.log(req.query)
+  // console.log(req.body)
 })
 
 app.listen(80)
