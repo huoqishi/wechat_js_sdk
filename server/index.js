@@ -68,7 +68,7 @@ app.get('/wechat/ticket', (req, res) => {
 
       // 返回数据，让微信进行加密！
       res.send({
-        timestamp:timestamp/1000 + ‘’,
+        timestamp:parseInt(timestamp/1000),
         nonceStr:noncestr,
         appid:app.APPID,
         signature:signature
