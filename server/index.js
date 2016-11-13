@@ -4,8 +4,11 @@ const bodyParser = require('body-parser')
 const app = express()
 
 // 转换xmltojs
-const xml2js= require('xml2js')
-// console.log(xml2js)
+const xml2js = require('xml2js')
+
+const builder = new xml2js.Builder() // json -> xml
+const parser = new xml2js.Parser() // xml -> json
+    // console.log(xml2js)
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -21,26 +24,19 @@ app.get('/wechat/index', (req, res) => {
 })
 
 app.use('/wechat/index', (req, res) => {
-    // let dt
-    // req.on('data', data =>{
-    //   dt = data.toString('utf-8')
-    // })
-    // req.on('end', ()=>{
-    //   console.log(dt)
-    // })
-    console.log('有请求过来了')
-        // console.log(req.query)
-    console.log(req.body)
-    xml2js.parseString(req.body, function(err, result) {
-        console.dir(result);
-        var xx = xml2js.Builder().buildObject(result,function(err,rest){
-          console.log('result')
-          console.log(rest)
-        })
-        console.log('result---')
-        console.log(xx)
-    })
-    console.log(xml2js)
-})
+    parser.parseString(req.body, function(err, result) {
+        // 交换fromusername 与tousername
+        let tmp =  result.FromUserName
+        result.FromUserName = result.ToUserName
+        result.ToUserName = tmp
 
+        // 设置返回给用户的消息内容
+        result.Content = Math.random()
+        // result.FromUserName = [result.ToUserName, result.ToUserName = result.FromUserName][0]
+        
+        // 将json形式对象转换为xml格式字符串
+        let sendMsg = builder.buildObject(result)  
+        res.send(sendMsg)
+    })
+})
 app.listen(80)
