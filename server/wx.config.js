@@ -71,8 +71,8 @@ app.getJsapi_Ticket = (callback) => {
         type: 'jsapi'
     }
 
-    app.getAccess_Token((access_token) => {
-        arg.access_token = access_tokens
+    app.getAccess_Token((at) => {
+        arg.access_token = at
             // 获取jsapi_ticket
         const url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?' + qs.stringify(arg)
         request(url, (err, res, body) => {
