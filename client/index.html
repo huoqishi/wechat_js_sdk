@@ -20,7 +20,7 @@
     xhr.onreadystatechange = function(res) {
         console.log(res.readyState)
         console.log(res.status)
-        if (res.targe.readyState == 4) {
+        if (res.target.readyState == 4) {
             if (res.target.status == 200) {
               alert("success");
                 console.log(res.target.responseText)
