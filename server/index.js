@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 const app = express()
 
 // 转换xmltojs
-const parseString= require('xml2js').parseString
+const xml2js= require('xml2js')
+// console.log(xml2js)
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -30,9 +31,16 @@ app.use('/wechat/index', (req, res) => {
     console.log('有请求过来了')
         // console.log(req.query)
     console.log(req.body)
-    parseString(req.body, function(err, result) {
+    xml2js.parseString(req.body, function(err, result) {
         console.dir(result);
-    });
+        var xx = xml2js.Builder().buildObject(result,function(err,rest){
+          console.log('result')
+          console.log(rest)
+        })
+        console.log('result---')
+        console.log(xx)
+    })
+    console.log(xml2js)
 })
 
 app.listen(80)
